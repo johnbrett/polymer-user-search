@@ -1,0 +1,39 @@
+﻿<link rel="import" href="../polymer-components/polymer/polymer.html">
+<link rel="import" href="github-service.html">
+<link rel="import" href="post-card.html">
+<link rel="import" href="../polymer-components/core-input/core-input.html">
+
+<polymer-element name="post-list" attributes="show">
+    <template>
+        <style>
+            :host {
+                display: block;
+                width: 100%;
+            }
+            post-card {
+                margin-bottom: 30px;
+            }
+        </style>
+        <post-service id="service" posts="{{posts}}" query="{{query}}"></post-service>
+        <div class="container" layout vertical center>
+            <post-card>
+                User Search:
+                <core-input id="search" style="width: 10em; float: right" placeholder="Placeholder text here" on-input="{{changeInput}}" on-change="{{changeQuery}}" value="{{query}}"></core-input>
+            </post-card>
+        </div>
+        <div layout vertical center>
+            <template repeat="{{post in posts}}">
+                <post-card>
+                    <img src="{{post.avatar_url}}" width="70" height="70">
+
+                    <h2>{{post.login}}</h2>
+
+                    <p>Profile: <a href="{{post.html_url}}">{{post.html_url}}</a></p>
+                </post-card>
+            </template>
+        </div>
+    </template>
+    <script>
+        Polymer({});
+    </script>
+</polymer-element>

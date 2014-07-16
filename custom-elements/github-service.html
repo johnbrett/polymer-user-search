@@ -1,0 +1,22 @@
+<link rel="import" href="../polymer-components/polymer/polymer.html">
+<link rel="import" href="../polymer-components/core-ajax/core-ajax.html">
+<polymer-element name="post-service" attributes="posts query">
+    <template>
+        <style>
+            :host {
+                display: none;
+            }
+        </style>
+        <core-ajax id="ajax" auto url="https://api.github.com/search/users" params='{"q":"{{query}}"}' on-core-response="{{postsLoaded}}" handleAs="json"></core-ajax>
+    </template>
+    <script>
+        Polymer('post-service', {
+            created: function () {
+                this.posts = [];
+            },
+            postsLoaded: function () {
+                this.posts = this.$.ajax.response.items.slice(0);
+            }
+        });
+    </script>
+</polymer-element>
